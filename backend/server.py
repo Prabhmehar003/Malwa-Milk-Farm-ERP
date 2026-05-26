@@ -38,6 +38,7 @@ def normalize_postgres_url(database_url: str) -> tuple[str, dict]:
     query_items = dict(parse_qsl(split_url.query, keep_blank_values=True))
     sslmode = query_items.pop("sslmode", None)
     ssl = query_items.pop("ssl", None)
+    query_items.pop("channel_binding", None)
     connect_args = {}
 
     if sslmode and sslmode.lower() not in {"disable", "allow"}:
