@@ -54,7 +54,10 @@ def normalize_postgres_url(database_url: str) -> tuple[str, dict]:
 APP_ENV = os.environ.get("APP_ENV", "development").lower()
 IS_PRODUCTION = APP_ENV == "production"
 POSTGRES_URL, POSTGRES_CONNECT_ARGS = normalize_postgres_url(
-    os.environ.get("POSTGRES_URL", "postgresql+asyncpg://postgres:postgres@localhost:5432/malwa_dairy")
+    os.environ.get(
+        "POSTGRES_URL",
+        os.environ.get("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5432/malwa_dairy"),
+    )
 )
 JWT_SECRET = os.environ.get("JWT_SECRET")
 if not JWT_SECRET:
