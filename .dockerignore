@@ -1,0 +1,11 @@
+.git
+.emergent
+.DS_Store
+**/__pycache__
+**/*.pyc
+**/.env
+**/.env.*
+**/node_modules
+frontend/build
+test_reports
+memory/test_credentials.md

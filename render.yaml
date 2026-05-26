@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: malwa-milk-farm-erp
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: POSTGRES_URL
+        sync: false
+      - key: POSTGRES_SSL
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: admin@malwamilk.com
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: COOKIE_SAMESITE
+        value: lax
+      - key: SEED_STAFF_USER
+        value: false
+      - key: WRITE_TEST_CREDENTIALS
+        value: false

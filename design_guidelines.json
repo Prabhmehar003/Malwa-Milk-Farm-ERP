@@ -1,0 +1,120 @@
+{
+  "project_name": "MALWA MILK FARM",
+  "theme": "dark",
+  "archetype": "5 (Luxury) & 4 (Swiss & High-Contrast)",
+  "vibe": "Luxury SaaS, Premium Financial Dashboard, Linear/Stripe-inspired",
+  "color_palette": {
+    "background": "#050B14",
+    "surface": "#0B1221",
+    "surface_glass": "rgba(11, 18, 33, 0.7)",
+    "primary": "#2563EB",
+    "primary_glow": "rgba(37, 99, 235, 0.5)",
+    "accent_gold": "#D4AF37",
+    "accent_gold_glow": "rgba(212, 175, 55, 0.3)",
+    "text_primary": "#F8FAFC",
+    "text_secondary": "#94A3B8",
+    "border": "rgba(255, 255, 255, 0.08)",
+    "success": "#10B981",
+    "warning": "#F59E0B",
+    "danger": "#EF4444"
+  },
+  "typography": {
+    "headings": {
+      "family": "Outfit, sans-serif",
+      "weights": ["300", "500", "700"],
+      "tracking": "tracking-tight"
+    },
+    "body": {
+      "family": "Manrope, sans-serif",
+      "weights": ["400", "500"]
+    },
+    "mono": {
+      "family": "JetBrains Mono, monospace",
+      "usage": "Data tables, revenue numbers, quantities"
+    },
+    "scale": {
+      "h1": "text-4xl sm:text-5xl font-light tracking-tighter",
+      "h2": "text-2xl sm:text-3xl font-medium tracking-tight",
+      "h3": "text-xl sm:text-2xl font-medium",
+      "body": "text-sm md:text-base text-slate-300",
+      "kpi": "text-3xl font-bold font-mono text-white",
+      "label": "text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
+    }
+  },
+  "layout_and_spacing": {
+    "container": "max-w-7xl mx-auto px-6 py-8",
+    "dashboard_grid": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6",
+    "bento_spans": {
+      "primary_chart": "col-span-1 lg:col-span-3 row-span-2",
+      "kpi_card": "col-span-1",
+      "recent_list": "col-span-1 lg:col-span-1 row-span-2"
+    },
+    "padding_strategy": "Generous padding. Cards should use p-6 or p-8. No cramped data."
+  },
+  "components": {
+    "cards": {
+      "style": "Glassmorphism. bg-[#0B1221]/70 backdrop-blur-xl border border-white/5 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
+      "hover": "hover:border-blue-500/30 transition-colors duration-300"
+    },
+    "buttons": {
+      "primary": "bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-6 py-2.5 font-medium shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-all",
+      "premium": "bg-gradient-to-r from-[#D4AF37] to-[#FBBF24] hover:from-[#FBBF24] hover:to-[#D4AF37] text-black rounded-lg px-6 py-2.5 font-semibold shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all",
+      "secondary": "bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-lg px-6 py-2.5 transition-all"
+    },
+    "inputs": {
+      "style": "bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 placeholder:text-slate-500 transition-all outline-none"
+    },
+    "tables": {
+      "header": "bg-white/5 text-slate-300 font-medium text-sm border-b border-white/10",
+      "row": "border-b border-white/5 hover:bg-white/[0.02] transition-colors",
+      "cell": "py-4 px-4 text-sm text-slate-300"
+    },
+    "charts": {
+      "library": "recharts",
+      "styling": "Use stroke='#2563EB' for revenue lines. Use fill='url(#colorRev)' for gradients. Hide default axis lines, use transparent grids (stroke='rgba(255,255,255,0.05)')."
+    }
+  },
+  "motion_and_interaction": {
+    "philosophy": "Linear-style micro-interactions. Snappy, no delay.",
+    "hover_states": "Every interactive element MUST have a visual hover state (color change + subtle transform like -translate-y-[1px]).",
+    "page_transitions": "Framer Motion. Fade in and slide up (y: 20 -> y: 0) on mount with stagger for grid items.",
+    "toast": "Use Sonner for minimal, high-contrast dark toast notifications."
+  },
+  "media": {
+    "brand_logo": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/56eeb9f9-be80-46e1-b56b-4d93e93476f1/images/3a2ed5849dda25614c9895674d88a44a289c6823b442a45cfa59706e2bd9dffc.png",
+      "description": "Premium luxury geometric milk drop logo for Malwa Milk Farm"
+    },
+    "login_background": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/56eeb9f9-be80-46e1-b56b-4d93e93476f1/images/773c50b27c1bbe4c7470332d11e325f98ee221c18231099223aef1fb3c975604.png",
+      "description": "Cinematic macro shot of milk drop splashing on navy background with gold lighting"
+    },
+    "dashboard_background": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/56eeb9f9-be80-46e1-b56b-4d93e93476f1/images/95cbf57259a00d5ce416d0f554effa6dcdc60e61b21727baf9cb87f748ed061b.png",
+      "description": "Dark mode abstract background with glowing blue and gold glassmorphism elements"
+    },
+    "farm_atmosphere_1": {
+      "url": "https://images.unsplash.com/photo-1440428099904-c6d459a7e7b5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwZGFpcnklMjBmYXJtJTIwY293JTIwZGF3bnxlbnwwfHx8fDE3Nzk4MDAyNzV8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Herd of dairy cattle on field (for marketing or decorative cards)"
+    },
+    "farm_atmosphere_2": {
+      "url": "https://images.unsplash.com/photo-1500595046743-cd271d694d30?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwyfHxwcmVtaXVtJTIwZGFpcnklMjBmYXJtJTIwY293JTIwZGF3bnxlbnwwfHx8fDE3Nzk4MDAyNzV8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Cows on lush green field (alternative)"
+    }
+  },
+  "iconography": {
+    "library": "lucide-react",
+    "style": "stroke-width: 1.5, use soft gold or royal blue for active/premium icons, slate-400 for inactive"
+  },
+  "instructions_to_main_agent": [
+    "Strictly adhere to the dark theme and color palette. Avoid generic Bootstrap/Tailwind standard colors, use the specific hex codes provided.",
+    "Do NOT use Inter or Roboto for headings. Use Outfit (or similar modern geometric/display sans) for headings and Manrope for body text.",
+    "Use the provided image URLs exclusively. Never use dummyimage.com or via.placeholder.com.",
+    "Implement the Layout's Bento Grid exactly as described for the Dashboard. Ensure full height matching on adjacent cards.",
+    "Do NOT build generic Shadcn cards. Customize them with the glassmorphism classes provided in this JSON.",
+    "All interactive elements MUST have data-testid attributes (e.g., data-testid='submit-milk-entry').",
+    "For Recharts, customize the tooltips to match the dark glassmorphism theme (bg-[#0B1221], border-white/10).",
+    "Ensure the sidebar navigation feels premium, similar to Linear or Stripe. Dark background, subtle active states, not bulky.",
+    "Add confirmation modals for 'Delete Entry' and toast notifications for successful additions or payment updates."
+  ]
+}
