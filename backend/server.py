@@ -225,6 +225,10 @@ class PaymentResponse(BaseModel):
     created_at: datetime
     model_config = ConfigDict(from_attributes=True)
 
+class RepeatEntriesRequest(BaseModel):
+    source_date: datetime
+    target_date: datetime
+
 # Utility Functions
 def hash_password(password: str) -> str:
     salt = bcrypt.gensalt()
