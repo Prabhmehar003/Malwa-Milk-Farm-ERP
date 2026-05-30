@@ -53,7 +53,7 @@ const Entries = () => {
   const today = new Date();
 
   const response = await fetch(
-    '${API}/entries/repeat',
+    `${API}/entries/repeat`,
     {
       method: "POST",
       credentials: "include",
