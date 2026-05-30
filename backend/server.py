@@ -528,6 +528,68 @@ async def create_entry(entry: MilkEntryCreate, db: AsyncSession = Depends(get_db
     await db.refresh(new_entry)
     return new_entry
 
+@api_router.post("/entries/repeat")
+async def repeat_entries(
+    data: RepeatEntriesRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    # Get all entries from source date
+    result = await db.execute(
+        select(MilkEntry).where(
+            func.date(MilkEntry.entry_date) ==
+            func.date(data.source_date)
+        )
+    )
+
+    source_entries = result.scalars().all()
+
+    if not source_entries:
+        raise HTTPException(
+            status_code=404,
+            detail="No entries found for source date"
+        )
+
+    copied_count = 0
+
+    for entry in source_entries:
+
+        # Prevent duplicate entries
+        existing = await db.execute(
+            select(MilkEntry).where(
+                and_(
+                    MilkEntry.customer_id == entry.customer_id,
+                    MilkEntry.session == entry.session,
+                    func.date(MilkEntry.entry_date) ==
+                    func.date(data.target_date)
+                )
+            )
+        )
+
+        if existing.scalar_one_or_none():
+            continue
+
+        new_entry = MilkEntry(
+            customer_id=entry.customer_id,
+            milk_type=entry.milk_type,
+            price=entry.price,
+            quantity=entry.quantity,
+            revenue=entry.revenue,
+            session=entry.session,
+            entry_date=data.target_date,
+            created_by=user.id
+        )
+
+        db.add(new_entry)
+        copied_count += 1
+
+    await db.commit()
+
+    return {
+        "message": f"{copied_count} entries copied successfully",
+        "copied_entries": copied_count
+    }
+
 @api_router.put("/entries/{entry_id}", response_model=MilkEntryResponse)
 async def update_entry(entry_id: int, entry: MilkEntryCreate, db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
     result = await db.execute(select(MilkEntry).where(MilkEntry.id == entry_id))
