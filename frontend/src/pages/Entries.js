@@ -46,6 +46,34 @@ const Entries = () => {
     }
   };
 
+  const repeatEntries = async () => {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const today = new Date();
+
+  const response = await fetch(
+    "/api/entries/repeat",
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        source_date: yesterday.toISOString(),
+        target_date: today.toISOString()
+      })
+    }
+  );
+
+  const data = await response.json();
+
+  alert(data.message);
+
+  window.location.reload();
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
