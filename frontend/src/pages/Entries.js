@@ -158,18 +158,27 @@ const Entries = () => {
                 <h1 className="text-4xl font-light tracking-tighter text-white mb-2">Milk Entries</h1>
                 <p className="text-slate-400">Manage daily milk entries and transactions</p>
               </div>
-              <button
-                onClick={() => {
-                  resetForm();
-                  setEditEntry(null);
-                  setShowModal(true);
-                }}
-                data-testid="add-entry-button"
-                className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-6 py-3 font-medium glow-blue transition-all flex items-center gap-2"
-              >
-                <Plus className="w-5 h-5" />
-                Add Entry
-              </button>
+              <div className="flex items-center gap-3">
+  <button
+    onClick={repeatEntries}
+    className="bg-green-600 hover:bg-green-500 text-white rounded-lg px-6 py-3 font-medium transition-all"
+  >
+    Repeat Entries
+  </button>
+
+  <button
+    onClick={() => {
+      resetForm();
+      setEditEntry(null);
+      setShowModal(true);
+    }}
+    data-testid="add-entry-button"
+    className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-6 py-3 font-medium glow-blue transition-all flex items-center gap-2"
+  >
+    <Plus className="w-5 h-5" />
+    Add Entry
+  </button>
+</div>
             </div>
 
             {/* Search and Filters */}
