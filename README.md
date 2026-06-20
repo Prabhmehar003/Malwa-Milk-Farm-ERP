@@ -371,3 +371,129 @@ _Built with ❤️ for Malwa Milk Farm — because every farm deserves enterpris
 ⭐ **If this project helped you, please give it a star!** ⭐
 
 </div>
+
+```
+Malwa-Milk-Farm-ERP
+├─ .dockerignore
+├─ .emergent
+│  ├─ emergent.yml
+│  └─ markers
+│     ├─ .bootstrap-complete
+│     └─ .restic-restore-verified
+├─ DEPLOY_FREE.md
+├─ Dockerfile
+├─ README.md
+├─ api
+│  └─ index.py
+├─ backend
+│  ├─ requirements.txt
+│  ├─ server.py
+│  └─ tests
+│     └─ backend_test.py
+├─ design_guidelines.json
+├─ frontend
+│  ├─ README.md
+│  ├─ components.json
+│  ├─ craco.config.js
+│  ├─ jsconfig.json
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ plugins
+│  │  └─ health-check
+│  │     ├─ health-endpoints.js
+│  │     └─ webpack-health-plugin.js
+│  ├─ postcss.config.js
+│  ├─ public
+│  │  ├─ assets
+│  │  │  └─ dairy-hero.png
+│  │  └─ index.html
+│  ├─ src
+│  │  ├─ App.css
+│  │  ├─ App.js
+│  │  ├─ components
+│  │  │  ├─ KPICard.js
+│  │  │  ├─ ProtectedRoute.js
+│  │  │  ├─ Sidebar.js
+│  │  │  └─ ui
+│  │  │     ├─ accordion.jsx
+│  │  │     ├─ alert-dialog.jsx
+│  │  │     ├─ alert.jsx
+│  │  │     ├─ aspect-ratio.jsx
+│  │  │     ├─ avatar.jsx
+│  │  │     ├─ badge.jsx
+│  │  │     ├─ breadcrumb.jsx
+│  │  │     ├─ button.jsx
+│  │  │     ├─ calendar.jsx
+│  │  │     ├─ card.jsx
+│  │  │     ├─ carousel.jsx
+│  │  │     ├─ checkbox.jsx
+│  │  │     ├─ collapsible.jsx
+│  │  │     ├─ command.jsx
+│  │  │     ├─ context-menu.jsx
+│  │  │     ├─ dialog.jsx
+│  │  │     ├─ drawer.jsx
+│  │  │     ├─ dropdown-menu.jsx
+│  │  │     ├─ form.jsx
+│  │  │     ├─ hover-card.jsx
+│  │  │     ├─ input-otp.jsx
+│  │  │     ├─ input.jsx
+│  │  │     ├─ label.jsx
+│  │  │     ├─ menubar.jsx
+│  │  │     ├─ navigation-menu.jsx
+│  │  │     ├─ pagination.jsx
+│  │  │     ├─ popover.jsx
+│  │  │     ├─ progress.jsx
+│  │  │     ├─ radio-group.jsx
+│  │  │     ├─ resizable.jsx
+│  │  │     ├─ scroll-area.jsx
+│  │  │     ├─ select.jsx
+│  │  │     ├─ separator.jsx
+│  │  │     ├─ sheet.jsx
+│  │  │     ├─ skeleton.jsx
+│  │  │     ├─ slider.jsx
+│  │  │     ├─ sonner.jsx
+│  │  │     ├─ switch.jsx
+│  │  │     ├─ table.jsx
+│  │  │     ├─ tabs.jsx
+│  │  │     ├─ textarea.jsx
+│  │  │     ├─ toast.jsx
+│  │  │     ├─ toaster.jsx
+│  │  │     ├─ toggle-group.jsx
+│  │  │     ├─ toggle.jsx
+│  │  │     └─ tooltip.jsx
+│  │  ├─ contexts
+│  │  │  └─ AuthContext.js
+│  │  ├─ hooks
+│  │  │  └─ use-toast.js
+│  │  ├─ index.css
+│  │  ├─ index.js
+│  │  ├─ lib
+│  │  │  ├─ api.js
+│  │  │  └─ utils.js
+│  │  └─ pages
+│  │     ├─ Customers.js
+│  │     ├─ Dashboard.js
+│  │     ├─ Entries.js
+│  │     ├─ Login.js
+│  │     ├─ Register.js
+│  │     ├─ Reports.js
+│  │     └─ Settings.js
+│  └─ tailwind.config.js
+├─ memory
+│  └─ PRD.md
+├─ package-lock.json
+├─ package.json
+├─ prisma
+│  └─ schema.prisma
+├─ prisma.config.ts
+├─ render.yaml
+├─ requirements.txt
+├─ test_reports
+│  └─ pytest
+│     └─ pytest_results.xml
+├─ test_result.md
+├─ tests
+│  └─ __init__.py
+└─ vercel.json
+
+```
