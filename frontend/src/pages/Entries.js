@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '../components/Sidebar';
-import { Plus, Edit, Trash2, Search, Filter, X } from 'lucide-react';
+import { Plus, Copy, Edit, Trash2, Search, Filter, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/dialog';
@@ -13,6 +13,12 @@ const Entries = () => {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [showRepeatModal, setShowRepeatModal] = useState(false);
+
+const [repeatData, setRepeatData] = useState({
+    source_date: "",
+    target_date: new Date().toISOString().slice(0,10)
+});
   const [editEntry, setEditEntry] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterMilkType, setFilterMilkType] = useState('');
@@ -76,6 +82,30 @@ const Entries = () => {
       }
     }
   };
+  const handleRepeatEntries = async () => {
+    try {
+
+        await axios.post(
+            `${API}/entries/repeat`,
+            repeatData,
+            { withCredentials: true }
+        );
+
+        toast.success("Entries repeated successfully");
+
+        setShowRepeatModal(false);
+
+        fetchData();
+
+    } catch (error) {
+
+        toast.error(
+            error.response?.data?.message ||
+            "Failed to repeat entries"
+        );
+
+    }
+};
 
   const resetForm = () => {
     setFormData({
@@ -126,23 +156,38 @@ const Entries = () => {
         <div className="max-w-7xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="flex justify-between items-center mb-8">
-              <div>
-                <h1 className="text-4xl font-light tracking-tighter text-white mb-2">Milk Entries</h1>
-                <p className="text-slate-400">Manage daily milk entries and transactions</p>
-              </div>
-              <button
-                onClick={() => {
-                  resetForm();
-                  setEditEntry(null);
-                  setShowModal(true);
-                }}
-                data-testid="add-entry-button"
-                className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-6 py-3 font-medium glow-blue transition-all flex items-center gap-2"
-              >
-                <Plus className="w-5 h-5" />
-                Add Entry
-              </button>
-            </div>
+  <div>
+    <h1 className="text-4xl font-light tracking-tighter text-white mb-2">
+      Milk Entries
+    </h1>
+    <p className="text-slate-400">
+      Manage daily milk entries and transactions
+    </p>
+  </div>
+
+  <div className="flex gap-3">
+    <button
+      onClick={() => setShowRepeatModal(true)}
+      className="bg-green-600 hover:bg-green-500 text-white rounded-lg px-6 py-3 font-medium transition-all flex items-center gap-2"
+    >
+      <Copy className="w-5 h-5" />
+      Repeat Entry
+    </button>
+
+    <button
+      onClick={() => {
+        resetForm();
+        setEditEntry(null);
+        setShowModal(true);
+      }}
+      data-testid="add-entry-button"
+      className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-6 py-3 font-medium glow-blue transition-all flex items-center gap-2"
+    >
+      <Plus className="w-5 h-5" />
+      Add Entry
+    </button>
+  </div>
+</div>
 
             {/* Search and Filters */}
             <div className="glass-card p-6 mb-6">
@@ -402,6 +447,61 @@ const Entries = () => {
           </form>
         </DialogContent>
       </Dialog>
+                  <Dialog
+  open={showRepeatModal}
+  onOpenChange={setShowRepeatModal}
+>
+  <DialogContent className="bg-[#0B1221] border border-white/10 text-white max-w-md">
+    <DialogHeader>
+      <DialogTitle>Repeat Entries</DialogTitle>
+    </DialogHeader>
+
+    <div className="space-y-4">
+      <div>
+        <label className="block mb-2">Copy From Date</label>
+        <input
+          type="date"
+          value={repeatData.source_date}
+          onChange={(e) =>
+            setRepeatData({
+              ...repeatData,
+              source_date: e.target.value,
+            })
+          }
+          className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2">Copy To Date</label>
+        <input
+          type="date"
+          value={repeatData.target_date}
+          onChange={(e) =>
+            setRepeatData({
+              ...repeatData,
+              target_date: e.target.value,
+            })
+          }
+          className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2"
+        />
+      </div>
+
+      <div className="flex gap-3">
+        <Button onClick={handleRepeatEntries}>
+          Repeat
+        </Button>
+
+        <Button
+          variant="outline"
+          onClick={() => setShowRepeatModal(false)}
+        >
+          Cancel
+        </Button>
+      </div>
+    </div>
+  </DialogContent>
+</Dialog>
     </div>
   );
 };
