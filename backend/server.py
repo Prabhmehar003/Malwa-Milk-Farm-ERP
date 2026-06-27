@@ -7,7 +7,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional, List, Dict, Any
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, date, timezone, timedelta
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy import Column, Integer, String, Float, DateTime, Text, Enum, ForeignKey, select, func, and_, or_, Index
 from sqlalchemy.orm import declarative_base, relationship
@@ -205,6 +205,10 @@ class MilkEntryResponse(BaseModel):
     created_at: datetime
     customer_name: Optional[str] = None
     model_config = ConfigDict(from_attributes=True)
+
+class RepeatEntriesRequest(BaseModel):
+    source_date: date
+    target_date: date
 
 class PaymentCreate(BaseModel):
     customer_id: int
@@ -552,6 +556,81 @@ async def delete_entry(entry_id: int, db: AsyncSession = Depends(get_db), user: 
     await db.delete(entry)
     await db.commit()
     return {"message": "Entry deleted"}
+
+@api_router.post("/entries/repeat")
+async def repeat_entries(
+    data: RepeatEntriesRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    source_day = datetime.combine(
+        data.source_date,
+        datetime.min.time(),
+        tzinfo=timezone.utc
+    )
+
+    next_day = source_day + timedelta(days=1)
+
+    target_day = datetime.combine(
+        data.target_date,
+        datetime.min.time(),
+        tzinfo=timezone.utc
+    )
+
+    # Don't allow same day
+    if source_day.date() == target_day.date():
+        raise HTTPException(
+            status_code=400,
+            detail="Source and target dates cannot be the same."
+        )
+
+    # Get every entry from source date
+    result = await db.execute(
+        select(MilkEntry).where(
+            and_(
+                MilkEntry.entry_date >= source_day,
+                MilkEntry.entry_date < next_day
+            )
+        )
+    )
+
+    entries = result.scalars().all()
+
+    if not entries:
+        raise HTTPException(
+            status_code=404,
+            detail="No entries found for selected date."
+        )
+
+    copied = 0
+
+    for entry in entries:
+
+        new_datetime = target_day.replace(
+            hour=entry.entry_date.hour,
+            minute=entry.entry_date.minute,
+            second=entry.entry_date.second
+        )
+
+        new_entry = MilkEntry(
+            customer_id=entry.customer_id,
+            milk_type=entry.milk_type,
+            price=entry.price,
+            quantity=entry.quantity,
+            revenue=entry.revenue,
+            session=entry.session,
+            entry_date=new_datetime,
+            created_by=user.id
+        )
+
+        db.add(new_entry)
+        copied += 1
+
+    await db.commit()
+
+    return {
+        "message": f"{copied} entries copied successfully."
+    }
 
 # Analytics Routes
 @api_router.get("/analytics/dashboard")
