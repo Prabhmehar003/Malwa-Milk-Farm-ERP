@@ -463,14 +463,14 @@ const [repeatData, setRepeatData] = useState({
   open={showRepeatModal}
   onOpenChange={setShowRepeatModal}
 >
-  <DialogContent className="bg-[#1B1B1B] border border-white/10 text-white max-w-3xl rounded-[28px] overflow-hidden p-0 shadow-2xl">
+  <DialogContent className="bg-[#1B1B1B] border border-white/10 text-white max-w-[700px] rounded-[24px] overflow-hidden p-0 shadow-2xl">
 
     {/* Header */}
-    <div className="flex items-center justify-between px-10 py-8 border-b border-white/10">
+    <div className="flex items-center justify-between px-8 py-6 border-b border-white/10">
       <div className="flex items-center gap-3">
         <CalendarClock className="w-7 h-7 text-blue-400" />
         <div>
-          <DialogTitle className="text-4xl font-bold tracking-tight">
+          <DialogTitle className="text-3xl font-bold tracking-tight">
             Repeat Entries
           </DialogTitle>
           <p className="text-slate-400 text-sm mt-1">
@@ -481,7 +481,7 @@ const [repeatData, setRepeatData] = useState({
     </div>
 
     {/* Body */}
-    <div className="p-8 space-y-8">
+    <div className="p-6 space-y-6">
 
       {/* Quick Copy Yesterday */}
       <button
@@ -496,22 +496,22 @@ const [repeatData, setRepeatData] = useState({
             target_date: today.toISOString().slice(0, 10),
           });
         }}
-        className="w-full rounded-3xl bg-[#082B5B] border-2 border-blue-700 hover:border-blue-400 hover:scale-[1.01] transition-all duration-300 p-8"
+        className="w-full rounded-2xl bg-[#082B5B] border border-blue-700 hover:border-blue-400 hover:scale-[1.01] transition-all duration-300 p-5"
       >
         <div className="flex items-center justify-between">
 
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-4">
 
-            <div className="w-20 h-20 rounded-xl bg-blue-600 flex items-center justify-center">
-              <CalendarClock className="w-10 h-10 text-white" />
+            <div className="w-16 h-16 rounded-xl bg-blue-600 flex items-center justify-center">
+              <CalendarClock className="w-8 h-8 text-white" />
             </div>
 
             <div className="text-left">
-              <h3 className="text-3xl font-semibold text-blue-200">
+              <h3 className="text-2xl font-semibold text-blue-200">
                 Copy Yesterday
               </h3>
 
-              <p className="text-blue-300 mt-1 text-lg">
+              <p className="text-blue-300 mt-1 text-base">
                 {new Date(Date.now() - 86400000).toLocaleDateString()}{" "}
                 <ArrowRight className="inline w-5 h-5 mx-2" />
                 {new Date().toLocaleDateString()}
@@ -520,7 +520,7 @@ const [repeatData, setRepeatData] = useState({
 
           </div>
 
-          <ArrowRight className="w-10 h-10 text-blue-300" />
+          <ArrowRight className="w-8 h-8 text-blue-300" />
 
         </div>
       </button>
@@ -558,7 +558,7 @@ const [repeatData, setRepeatData] = useState({
                 source_date: e.target.value,
               })
             }
-            className="w-full rounded-2xl bg-[#232323] border border-white/10 px-6 py-5 text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-xl bg-[#232323] border border-white/10 px-5 py-3 text-base font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
         </div>
@@ -578,7 +578,7 @@ const [repeatData, setRepeatData] = useState({
                 target_date: e.target.value,
               })
             }
-            className="w-full rounded-2xl bg-[#232323] border border-white/10 px-6 py-5 text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-xl bg-[#232323] border border-white/10 px-5 py-3 text-base font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
         </div>
@@ -593,7 +593,7 @@ const [repeatData, setRepeatData] = useState({
 
           <Info className="w-5 h-5 text-blue-400 mt-1" />
 
-          <p className="text-slate-300 leading-7">
+          <p className="text-sm text-slate-300 leading-6">
 
             <span className="font-semibold text-white">
               All entries
@@ -622,19 +622,19 @@ const [repeatData, setRepeatData] = useState({
 
     {/* Footer */}
 
-    <div className="border-t border-white/10 px-10 py-8 flex justify-end gap-5">
+    <div className="border-t border-white/10 px-8 py-6 flex justify-end gap-5">
 
       <Button
         variant="outline"
         onClick={() => setShowRepeatModal(false)}
-        className="rounded-xl h-14 px-10"
+        className="rounded-xl h-12 px-8"
       >
         Cancel
       </Button>
 
       <Button
         onClick={handleRepeatEntries}
-        className="bg-blue-600 hover:bg-blue-500 rounded-xl h-14 px-10 text-lg"
+        className="bg-blue-600 hover:bg-blue-500 rounded-xl h-12 px-8"
       >
         <Copy className="w-4 h-4 mr-2" />
         Repeat Entries
