@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '../components/Sidebar';
-import { Plus, Copy, Edit, Trash2, Search, Filter, X } from 'lucide-react';
+import { Plus, Copy, Edit, Trash2, Search, X, CalendarClock, ArrowRight, Info } from "lucide-react";
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/dialog';
@@ -167,7 +167,19 @@ const [repeatData, setRepeatData] = useState({
 
   <div className="flex gap-3">
     <button
-      onClick={() => setShowRepeatModal(true)}
+      onClick={() => {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const today = new Date();
+
+  setRepeatData({
+    source_date: yesterday.toISOString().slice(0, 10),
+    target_date: today.toISOString().slice(0, 10),
+  });
+
+  setShowRepeatModal(true);
+}}
       className="bg-green-600 hover:bg-green-500 text-white rounded-lg px-6 py-3 font-medium transition-all flex items-center gap-2"
     >
       <Copy className="w-5 h-5" />
@@ -451,55 +463,185 @@ const [repeatData, setRepeatData] = useState({
   open={showRepeatModal}
   onOpenChange={setShowRepeatModal}
 >
-  <DialogContent className="bg-[#0B1221] border border-white/10 text-white max-w-md">
-    <DialogHeader>
-      <DialogTitle>Repeat Entries</DialogTitle>
-    </DialogHeader>
+  <DialogContent className="bg-[#1B1B1B] border border-white/10 text-white max-w-3xl rounded-[28px] overflow-hidden p-0 shadow-2xl">
 
-    <div className="space-y-4">
-      <div>
-        <label className="block mb-2">Copy From Date</label>
-        <input
-          type="date"
-          value={repeatData.source_date}
-          onChange={(e) =>
-            setRepeatData({
-              ...repeatData,
-              source_date: e.target.value,
-            })
-          }
-          className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2"
-        />
-      </div>
-
-      <div>
-        <label className="block mb-2">Copy To Date</label>
-        <input
-          type="date"
-          value={repeatData.target_date}
-          onChange={(e) =>
-            setRepeatData({
-              ...repeatData,
-              target_date: e.target.value,
-            })
-          }
-          className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2"
-        />
-      </div>
-
-      <div className="flex gap-3">
-        <Button onClick={handleRepeatEntries}>
-          Repeat
-        </Button>
-
-        <Button
-          variant="outline"
-          onClick={() => setShowRepeatModal(false)}
-        >
-          Cancel
-        </Button>
+    {/* Header */}
+    <div className="flex items-center justify-between px-10 py-8 border-b border-white/10">
+      <div className="flex items-center gap-3">
+        <CalendarClock className="w-7 h-7 text-blue-400" />
+        <div>
+          <DialogTitle className="text-4xl font-bold tracking-tight">
+            Repeat Entries
+          </DialogTitle>
+          <p className="text-slate-400 text-sm mt-1">
+            Copy all milk entries from one date to another
+          </p>
+        </div>
       </div>
     </div>
+
+    {/* Body */}
+    <div className="p-8 space-y-8">
+
+      {/* Quick Copy Yesterday */}
+      <button
+        onClick={() => {
+          const yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+
+          const today = new Date();
+
+          setRepeatData({
+            source_date: yesterday.toISOString().slice(0, 10),
+            target_date: today.toISOString().slice(0, 10),
+          });
+        }}
+        className="w-full rounded-3xl bg-[#082B5B] border-2 border-blue-700 hover:border-blue-400 hover:scale-[1.01] transition-all duration-300 p-8"
+      >
+        <div className="flex items-center justify-between">
+
+          <div className="flex items-center gap-5">
+
+            <div className="w-20 h-20 rounded-xl bg-blue-600 flex items-center justify-center">
+              <CalendarClock className="w-10 h-10 text-white" />
+            </div>
+
+            <div className="text-left">
+              <h3 className="text-3xl font-semibold text-blue-200">
+                Copy Yesterday
+              </h3>
+
+              <p className="text-blue-300 mt-1 text-lg">
+                {new Date(Date.now() - 86400000).toLocaleDateString()}{" "}
+                <ArrowRight className="inline w-5 h-5 mx-2" />
+                {new Date().toLocaleDateString()}
+              </p>
+            </div>
+
+          </div>
+
+          <ArrowRight className="w-10 h-10 text-blue-300" />
+
+        </div>
+      </button>
+
+      {/* Divider */}
+
+      <div className="flex items-center gap-4">
+
+        <div className="flex-1 h-px bg-white/10"></div>
+
+        <span className="text-slate-400">
+          or choose custom dates
+        </span>
+
+        <div className="flex-1 h-px bg-white/10"></div>
+
+      </div>
+
+      {/* Date Inputs */}
+
+      <div className="grid grid-cols-2 gap-6">
+
+        <div>
+
+          <label className="block text-slate-300 mb-3 font-medium">
+            Copy From
+          </label>
+
+          <input
+            type="date"
+            value={repeatData.source_date}
+            onChange={(e) =>
+              setRepeatData({
+                ...repeatData,
+                source_date: e.target.value,
+              })
+            }
+            className="w-full rounded-2xl bg-[#232323] border border-white/10 px-6 py-5 text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+        </div>
+
+        <div>
+
+          <label className="block text-slate-300 mb-3 font-medium">
+            Copy To
+          </label>
+
+          <input
+            type="date"
+            value={repeatData.target_date}
+            onChange={(e) =>
+              setRepeatData({
+                ...repeatData,
+                target_date: e.target.value,
+              })
+            }
+            className="w-full rounded-2xl bg-[#232323] border border-white/10 px-6 py-5 text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+        </div>
+
+      </div>
+
+      {/* Info Box */}
+
+      <div className="rounded-xl border border-white/10 bg-black/30 p-5">
+
+        <div className="flex items-start gap-3">
+
+          <Info className="w-5 h-5 text-blue-400 mt-1" />
+
+          <p className="text-slate-300 leading-7">
+
+            <span className="font-semibold text-white">
+              All entries
+            </span>{" "}
+            from{" "}
+            <span className="text-blue-300 font-semibold">
+              {repeatData.source_date || "-----"}
+            </span>{" "}
+            will be copied to{" "}
+            <span className="text-green-400 font-semibold">
+              {repeatData.target_date || "-----"}
+            </span>.
+
+            <br />
+
+            Every customer's entries will be duplicated, including multiple
+            entries for the same customer.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    {/* Footer */}
+
+    <div className="border-t border-white/10 px-10 py-8 flex justify-end gap-5">
+
+      <Button
+        variant="outline"
+        onClick={() => setShowRepeatModal(false)}
+        className="rounded-xl h-14 px-10"
+      >
+        Cancel
+      </Button>
+
+      <Button
+        onClick={handleRepeatEntries}
+        className="bg-blue-600 hover:bg-blue-500 rounded-xl h-14 px-10 text-lg"
+      >
+        <Copy className="w-4 h-4 mr-2" />
+        Repeat Entries
+      </Button>
+
+    </div>
+
   </DialogContent>
 </Dialog>
     </div>
